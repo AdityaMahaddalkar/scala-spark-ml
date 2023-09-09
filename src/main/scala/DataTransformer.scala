@@ -1,7 +1,7 @@
 import org.apache.spark.ml.Pipeline
 import org.apache.spark.ml.feature.VectorAssembler
 import org.apache.spark.sql.functions.col
-import org.apache.spark.sql.types.IntegerType
+import org.apache.spark.sql.types.{DoubleType, IntegerType}
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
 class DataTransformer(spark: SparkSession) {
@@ -19,7 +19,7 @@ class DataTransformer(spark: SparkSession) {
 
     var df = readFile(filePath)
 
-    df = df.withColumn("Class", col("Class").cast(IntegerType))
+    df = df.withColumn("Class", col("Class").cast(DoubleType))
       .withColumnRenamed("Class", TARGET_COL)
 
     val featureCols = df.columns.filter(col => col != TARGET_COL)
